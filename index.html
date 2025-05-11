@@ -25,9 +25,10 @@
             overflow-y: auto;
             font-size: 1.1rem;
             line-height: 1.5;
+            display: none;
         }
         .input-section {
-            display: flex;
+            display: none;
             margin-top: 10px;
         }
         #command-input {
@@ -49,9 +50,32 @@
         #submit-button:hover {
             background-color: #00cc00;
         }
+        #intro {
+            text-align: center;
+        }
+        #start-button {
+            background-color: #00ff00;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #start-button:hover {
+            background-color: #00cc00;
+        }
     </style>
 </head>
 <body>
+
+<div id="intro">
+    <h2>Welcome, Cyber Agent.</h2>
+    <p>Your mission is to uncover hidden information using advanced Google Dorking techniques.</p>
+    <p>You must solve 10 challenges. Only those with sharp minds and a keen sense of investigation can complete them.</p>
+    <p>Are you ready to begin your mission?</p>
+    <button id="start-button" onclick="startMission()">Start Mission</button>
+</div>
 
 <div id="terminal"></div>
 
@@ -116,6 +140,14 @@
     
     let currentChallenge = 0;
     const terminal = document.getElementById("terminal");
+    const intro = document.getElementById("intro");
+
+    function startMission() {
+        intro.style.display = "none";
+        terminal.style.display = "block";
+        document.querySelector(".input-section").style.display = "flex";
+        loadChallenge();
+    }
 
     function loadChallenge() {
         terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenges[currentChallenge].explanation}</p>
@@ -139,8 +171,6 @@
         document.getElementById("command-input").value = '';
         terminal.scrollTop = terminal.scrollHeight;
     }
-
-    loadChallenge();
 </script>
 
 </body>
