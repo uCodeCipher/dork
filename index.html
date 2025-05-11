@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Agent: Dorking Master</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #terminal {
+            width: 80%;
+            max-width: 800px;
+            background-color: #111;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            text-align: left;
+            height: 400px;
+            overflow-y: auto;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        .input-section {
+            display: flex;
+            margin-top: 10px;
+        }
+        #command-input {
+            flex: 1;
+            background: black;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            padding: 5px;
+        }
+        #submit-button {
+            background-color: #00ff00;
+            border: none;
+            color: black;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+        #submit-button:hover {
+            background-color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<div class="input-section">
+    <input type="text" id="command-input" placeholder="Type your answer here..." autofocus>
+    <button id="submit-button" onclick="checkAnswer()">Submit</button>
+</div>
+
+<script>
+    const challenges = [
+        { 
+            explanation: "You are looking for confidential PDF documents that may be exposed on a website. Use Google Dorking to find them.", 
+            question: 'site:example.com filetype:_____ "confidential"', 
+            answer: 'pdf' 
+        },
+        { 
+            explanation: "Locate exposed login pages that could be vulnerable. Use Google Dorking to identify them.", 
+            question: 'inurl: admin _____', 
+            answer: 'login' 
+        },
+        { 
+            explanation: "Your mission is to uncover hidden directories. These may contain exposed files.", 
+            question: '_______:example.com intitle:index', 
+            answer: 'site' 
+        },
+        { 
+            explanation: "Public webcams may be exposed online. Find them using the right search query.", 
+            question: 'intitle:"Live View / - _____"', 
+            answer: 'AXIS' 
+        },
+        { 
+            explanation: "You suspect someone has exposed text files containing usernames and passwords. Find them.", 
+            question: 'filetype:_____ "username" "password"', 
+            answer: 'txt' 
+        },
+        { 
+            explanation: "Some websites have exposed 'Forgot Password' pages. Use Google Dorking to locate them.", 
+            question: '_____:forgot _____:example.com', 
+            answer: 'inurl site' 
+        },
+        { 
+            explanation: "Public Wi-Fi configuration files may be exposed. Use Google Dorking to find them.", 
+            question: 'filetype:_____ intitle:_____ Wi-Fi', 
+            answer: 'config settings' 
+        },
+        { 
+            explanation: "Find Exposed Spreadsheets with User Data.", 
+            question: 'filetype:______ "______ data"', 
+            answer: 'xls user' 
+        },
+        { 
+            explanation: "You are searching for Excel files containing personal information. Use a complete Google Dork.", 
+            question: 'filetype:xls OR filetype:xlsx "personal information"', 
+            answer: 'filetype:xls OR filetype:xlsx "personal information"' 
+        },
+        { 
+            explanation: "Find Government Reports on Data Breaches.", 
+            question: '________________________', 
+            answer: 'filetype:pdf "data breach report" site:gov' 
+        }
+    ];
+    
+    let currentChallenge = 0;
+    const terminal = document.getElementById("terminal");
+
+    function loadChallenge() {
+        terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenges[currentChallenge].explanation}</p>
+        <p>${challenges[currentChallenge].question}</p>`;
+    }
+
+    function checkAnswer() {
+        const input = document.getElementById("command-input").value.trim().toLowerCase();
+        if (input === challenges[currentChallenge].answer) {
+            terminal.innerHTML += `<p style="color: #00ff00;">✅ Correct!</p>`;
+            currentChallenge++;
+            if (currentChallenge < challenges.length) {
+                loadChallenge();
+            } else {
+                terminal.innerHTML += `<p><strong>🎉 Mission Complete!</strong> You are now a certified Cyber Agent - Dorking Master!</p>`;
+                document.querySelector(".input-section").style.display = "none";
+            }
+        } else {
+            terminal.innerHTML += `<p style="color: red;">❌ Incorrect. Try again.</p>`;
+        }
+        document.getElementById("command-input").value = '';
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    loadChallenge();
+</script>
+
+</body>
+</html>
