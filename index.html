@@ -72,8 +72,7 @@
 <div id="intro">
     <h2>Welcome, Cyber Agent.</h2>
     <p>Your mission is to uncover hidden information using advanced Google Dorking techniques.</p>
-    <p>You must solve 10 challenges. Only those with sharp minds and a keen sense of investigation can complete them.</p>
-    <p>Are you ready to begin your mission?</p>
+    <p>You must solve 10 challenges. Only those with sharp minds can complete them.</p>
     <button id="start-button" onclick="startMission()">Start Mission</button>
 </div>
 
@@ -86,58 +85,18 @@
 
 <script>
     const challenges = [
-        { 
-            explanation: "You are looking for confidential PDF documents that may be exposed on a website. Use Google Dorking to find them.", 
-            question: 'site:example.com filetype:_____ "confidential"', 
-            answer: 'pdf' 
-        },
-        { 
-            explanation: "Locate exposed login pages that could be vulnerable. Use Google Dorking to identify them.", 
-            question: 'inurl: admin _____', 
-            answer: 'login' 
-        },
-        { 
-            explanation: "Your mission is to uncover hidden directories. These may contain exposed files.", 
-            question: '_______:example.com intitle:index', 
-            answer: 'site' 
-        },
-        { 
-            explanation: "Public webcams may be exposed online. Find them using the right search query.", 
-            question: 'inurl:_____ "Live View / - AXIS"', 
-            answer: 'view' 
-        },
-        { 
-            explanation: "You suspect someone has exposed text files containing usernames and passwords. Find them.", 
-            question: 'filetype:_____ "username" "password"', 
-            answer: 'txt' 
-        },
-        { 
-            explanation: "Some websites have exposed 'Forgot Password' pages. Use Google Dorking to locate them.", 
-            question: '_____:forgot _____:example.com', 
-            answer: 'inurl site' 
-        },
-        { 
-            explanation: "Public Wi-Fi configuration files may be exposed. Use Google Dorking to find them.", 
-            question: 'filetype:_____ intitle:_____ Wi-Fi', 
-            answer: 'config settings' 
-        },
-        { 
-            explanation: "Find Exposed Spreadsheets with User Data.", 
-            question: 'filetype:______ "______ data"', 
-            answer: 'xls user' 
-        },
-        { 
-            explanation: "You are searching for Excel files containing personal information. Use a complete Google Dork.", 
-            question: '______:______ "________ ________"', 
-            answer: 'filetype xls personal information' 
-        },
-        { 
-            explanation: "Find Government PDF Reports on Data Breaches.", 
-            question: '________:_______ "_____ ______" _____"______', 
-            answer: 'filetype pdf data breach site gov' 
-        }
+        { question: 'site:example.com filetype:_____ "confidential"', answer: 'cGRm' },
+        { question: 'inurl: admin _____', answer: 'bG9naW4=' },
+        { question: '_______:example.com intitle:index', answer: 'c2l0ZQ==' },
+        { question: 'inurl:_____ "Live View / - AXIS"', answer: 'dmlldw==' },
+        { question: 'filetype:_____ "username" "password"', answer: 'dHh0' },
+        { question: '_____:forgot _____:example.com', answer: 'aW51cmwgc2l0ZQ==' },
+        { question: 'filetype:_____ intitle:_____ Wi-Fi', answer: 'Y29uZmlnIHNldHRpbmdz' },
+        { question: 'filetype:______ "______ data"', answer: 'eGxzIHVzZXI=' },
+        { question: '______:______ "________ ________"', answer: 'ZmlsZXR5cGUgeGxzIHBlcnNvbmFsIGluZm9ybWF0aW9u' },
+        { question: '________:_______ "_____ ______" _____"______', answer: 'ZmlsZXR5cGUgcGRmIGRhdGEgYnJlYWNoIHNpdGUgZ292' }
     ];
-    
+
     let currentChallenge = 0;
     const terminal = document.getElementById("terminal");
     const intro = document.getElementById("intro");
@@ -149,14 +108,18 @@
         loadChallenge();
     }
 
+    function decodeBase64(encoded) {
+        return atob(encoded);
+    }
+
     function loadChallenge() {
-        terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenges[currentChallenge].explanation}</p>
-        <p>${challenges[currentChallenge].question}</p>`;
+        terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenges[currentChallenge].question}</p>`;
     }
 
     function checkAnswer() {
         const input = document.getElementById("command-input").value.trim().toLowerCase();
-        if (input === challenges[currentChallenge].answer) {
+        const correctAnswer = decodeBase64(challenges[currentChallenge].answer);
+        if (input === correctAnswer) {
             terminal.innerHTML += `<p style="color: #00ff00;">✅ Correct!</p>`;
             currentChallenge++;
             if (currentChallenge < challenges.length) {
