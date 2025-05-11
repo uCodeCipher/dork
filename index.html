@@ -85,16 +85,56 @@
 
 <script>
     const challenges = [
-        { question: 'site:example.com filetype:_____ "confidential"', answer: 'cGRm' },
-        { question: 'inurl: admin _____', answer: 'bG9naW4=' },
-        { question: '_______:example.com intitle:index', answer: 'c2l0ZQ==' },
-        { question: 'inurl:_____ "Live View / - AXIS"', answer: 'dmlldw==' },
-        { question: 'filetype:_____ "username" "password"', answer: 'dHh0' },
-        { question: '_____:forgot _____:example.com', answer: 'aW51cmwgc2l0ZQ==' },
-        { question: 'filetype:_____ intitle:_____ Wi-Fi', answer: 'Y29uZmlnIHNldHRpbmdz' },
-        { question: 'filetype:______ "______ data"', answer: 'eGxzIHVzZXI=' },
-        { question: '______:______ "________ ________"', answer: 'ZmlsZXR5cGUgeGxzIHBlcnNvbmFsIGluZm9ybWF0aW9u' },
-        { question: '________:_______ "_____ ______" _____"______', answer: 'ZmlsZXR5cGUgcGRmIGRhdGEgYnJlYWNoIHNpdGUgZ292' }
+        { 
+            explanation: "Locate confidential PDF documents on a website.", 
+            question: 'site:example.com filetype:_____ "confidential"', 
+            answer: 'cGRm' 
+        },
+        { 
+            explanation: "Find exposed login pages that could be vulnerable.", 
+            question: 'inurl: admin _____', 
+            answer: 'bG9naW4=' 
+        },
+        { 
+            explanation: "Discover hidden directories that may contain sensitive files.", 
+            question: '_______:example.com intitle:index', 
+            answer: 'c2l0ZQ==' 
+        },
+        { 
+            explanation: "Locate publicly accessible webcams.", 
+            question: 'inurl:_____ "Live View / - AXIS"', 
+            answer: 'dmlldw==' 
+        },
+        { 
+            explanation: "Search for text files containing usernames and passwords.", 
+            question: 'filetype:_____ "username" "password"', 
+            answer: 'dHh0' 
+        },
+        { 
+            explanation: "Identify 'Forgot Password' pages that may be exposed.", 
+            question: '_____:forgot _____:example.com', 
+            answer: 'aW51cmwgc2l0ZQ==' 
+        },
+        { 
+            explanation: "Find public Wi-Fi configuration files.", 
+            question: 'filetype:_____ intitle:_____ Wi-Fi', 
+            answer: 'Y29uZmlnIHNldHRpbmdz' 
+        },
+        { 
+            explanation: "Locate exposed spreadsheets containing user data.", 
+            question: 'filetype:______ "______ data"', 
+            answer: 'eGxzIHVzZXI=' 
+        },
+        { 
+            explanation: "Search for Excel files with personal information.", 
+            question: '______:______ "________ ________"', 
+            answer: 'ZmlsZXR5cGUgeGxzIHBlcnNvbmFsIGluZm9ybWF0aW9u' 
+        },
+        { 
+            explanation: "Access government PDF reports on data breaches.", 
+            question: '________:_______ "_____ ______" _____"______', 
+            answer: 'ZmlsZXR5cGUgcGRmIGRhdGEgYnJlYWNoIHNpdGUgZ292' 
+        }
     ];
 
     let currentChallenge = 0;
@@ -113,7 +153,9 @@
     }
 
     function loadChallenge() {
-        terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenges[currentChallenge].question}</p>`;
+        const challenge = challenges[currentChallenge];
+        terminal.innerHTML = `<p><strong>Challenge ${currentChallenge + 1}:</strong> ${challenge.explanation}</p>
+        <p>${challenge.question}</p>`;
     }
 
     function checkAnswer() {
